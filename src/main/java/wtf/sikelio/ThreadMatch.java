@@ -13,7 +13,9 @@ public class ThreadMatch implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        System.out.println("Start match ("+ this.teamOne + " - " + this.teamTwo +")");
+
+        for (int i = 0; i < 3; i++) {
             synchronized (this) {
                 System.out.println(this.teamOne + " - " + this.teamTwo + " : " + CommentGenerator.getRandomComment());
 
@@ -24,6 +26,8 @@ public class ThreadMatch implements Runnable {
                 }
             }
         }
+
+        System.out.println("End match ("+ this.teamOne + " - " + this.teamTwo +")");
     }
 
     private int randomMilliSecondWaiting(Integer min, Integer max) {

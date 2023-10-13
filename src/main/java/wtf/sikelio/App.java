@@ -15,8 +15,17 @@ public class App
         Thread threadTwo = new Thread(threadMatchTwo);
         Thread threadThree = new Thread(threadMatchThree);
 
-        threadOne.start();
-        threadTwo.start();
-        threadThree.start();
+        try {
+            threadOne.start();
+            threadOne.join();
+
+            threadTwo.start();
+            threadTwo.join();
+
+            threadThree.start();
+            threadThree.join();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
