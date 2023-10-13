@@ -9,6 +9,8 @@ public class ThreadMatch implements Runnable {
     private int teamOnePoints;
     private int teamTwoPoints;
 
+    private CommentGenerator commentGenerator = CommentGenerator.getInstance();
+
     public ThreadMatch(String teamOne, String teamTwo) {
         this.teamOne = teamOne;
         this.teamTwo = teamTwo;
@@ -23,7 +25,7 @@ public class ThreadMatch implements Runnable {
 
         for (int i = 0; i < 3; i++) {
             synchronized (this) {
-                String comment = CommentGenerator.getRandomComment();
+                String comment = commentGenerator.getRandomComment();
 
                 switch (comment) {
                     case "But des locaux !!!":

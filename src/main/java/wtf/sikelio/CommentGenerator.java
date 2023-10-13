@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentGenerator {
+	private static CommentGenerator instance = null;
 
 	protected static List<String> listComments;
 
-	static {
+	private CommentGenerator() {
 		listComments = new ArrayList<String>();
 		listComments.add("But des locaux !!!");
 		listComments.add("But des visiteurs !!!");
@@ -30,10 +31,17 @@ public class CommentGenerator {
 		listComments.add("Envahissement du terrain par des supporters !");
 	}
 
+	public static CommentGenerator getInstance() {
+		if (instance == null) {
+			instance = new CommentGenerator();
+		}
+
+		return instance;
+	}
+
 	public static String getRandomComment() {
 		int i = (int) Math.floor(Math.random() * listComments.size());
 
 		return listComments.get(i);
 	}
-
 }
