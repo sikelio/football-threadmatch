@@ -6,9 +6,15 @@ public class ThreadMatch implements Runnable {
     public String teamOne;
     public String teamTwo;
 
+    private int teamOnePoints;
+    private int teamTwoPoints;
+
     public ThreadMatch(String teamOne, String teamTwo) {
         this.teamOne = teamOne;
         this.teamTwo = teamTwo;
+
+        this.teamOnePoints = 0;
+        this.teamTwoPoints = 0;
     }
 
     @Override
@@ -17,7 +23,18 @@ public class ThreadMatch implements Runnable {
 
         for (int i = 0; i < 3; i++) {
             synchronized (this) {
-                System.out.println(this.teamOne + " - " + this.teamTwo + " : " + CommentGenerator.getRandomComment());
+                String comment = CommentGenerator.getRandomComment();
+
+                switch (comment) {
+                    case "But des locaux !!!":
+                        this.teamOnePoints++;
+                        break;
+                    case "But des visiteurs !!!":
+                        this.teamTwoPoints++;
+                        break;
+                }
+
+                System.out.println(this.teamOne + " - " + this.teamTwo + " : " + comment);
 
                 try {
                     wait(this.randomMilliSecondWaiting(1000, 10000));
@@ -27,7 +44,7 @@ public class ThreadMatch implements Runnable {
             }
         }
 
-        System.out.println("End match ("+ this.teamOne + " - " + this.teamTwo +")");
+        System.out.println("End match ("+ this.teamOne + ": " + this.teamOnePoints + " - " + this.teamTwo + ": " + this.teamTwoPoints +")");
     }
 
     private int randomMilliSecondWaiting(Integer min, Integer max) {
